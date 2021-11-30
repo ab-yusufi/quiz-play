@@ -1,9 +1,9 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { isAuthenticated } from "../../helper/auth";
-import { createQuiz } from "../../helper/quiz";
+import { createQuiz, updateQuiz } from "../../helper/quiz";
 import { Redirect } from "react-router-dom";
 
-const AddEditQuiz = () => {
+const AddEditQuiz = ({ location }) => {
   const [values, setValues] = useState({
     title: "Quiz On America",
     questions: [
@@ -86,28 +86,65 @@ const AddEditQuiz = () => {
   const onSubmit = (e) => {
     setValues({ ...values, loading: true, error: false, success: false });
     e.preventDefault();
-    createQuiz({ title, questions }, user._id, token)
-      .then((data) => {
+    if (location.state) {
+      updateQuiz(location.state._id, user._id, token, {
+        title,
+        questions,
+      }).then((data) => {
         if (data?.error) {
-          setValues({ ...values, error: data?.error + ". Please Check The Values", loading: false });
+          setValues({
+            ...values,
+            error: data?.error + ". Please Check The Values",
+            loading: false,
+          });
         } else {
           setValues({
             ...values,
-            success: "Quiz Created Successfully",
+            success: "Quiz Updated Successfully. Redirecting....",
             loading: false,
             error: "",
-            didRedirect: true
+            didRedirect: true,
           });
         }
-      })
-      .catch((err) => console.log(err));
-  };
- 
-  const performRedirect = () => {
-    if(didRedirect){
-      return <Redirect to="/user/dashboard"/>
+      });
+    } else {
+      createQuiz({ title, questions }, user._id, token)
+        .then((data) => {
+          if (data?.error) {
+            setValues({
+              ...values,
+              error: data?.error + ". Please Check The Values",
+              loading: false,
+            });
+          } else {
+            setValues({
+              ...values,
+              success: "Quiz Created Successfully. Redirecting...",
+              loading: false,
+              error: "",
+              didRedirect: true,
+            });
+          }
+        })
+        .catch((err) => console.log(err));
     }
-  }
+  };
+
+  const performRedirect = () => {
+    if (didRedirect) {
+      return <Redirect to="/user/dashboard" />;
+    }
+  };
+
+  useEffect(() => {
+    if (location.state) {
+      setValues({
+        ...values,
+        title: location.state.title,
+        questions: location.state.questions,
+      });
+    }
+  }, []);
 
   const QuizForm = () => {
     return (
@@ -206,14 +243,12 @@ const AddEditQuiz = () => {
         <div className="text-center">
           <button
             type="submit"
-            className="btn btn-primary btn-block mt-3 w-50"
+            className="btn btn-primary btn-block my-3 w-50"
             onClick={onSubmit}
           >
-            {loading ? (
-              <div class="spinner-border" role="status"></div>
-            ) : (
-              "Create Quiz"
-            )}
+            {loading && <div class="spinner-border" role="status"></div>}
+            {location.state && !loading && "Update Quiz"}
+            {!location.state && !loading && "Create Quiz"}
           </button>
         </div>
       </Fragment>
@@ -243,11 +278,13 @@ const AddEditQuiz = () => {
   };
   return (
     <div className="container">
-      <h1 className="text-primary text-center my-4">Add Quiz Here</h1>
-      {successMessage()}
-      {errorMessage()}
+      <h1 className="text-primary text-center my-4">
+        {location.state ? "Edit Quiz Here" : "Add Quiz Here"}
+      </h1>
       {QuizForm()}
       {performRedirect()}
+      {errorMessage()}
+      {successMessage()}
     </div>
   );
 };

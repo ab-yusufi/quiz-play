@@ -14,8 +14,10 @@ const UserDashboard = ({ history }) => {
     setLoading(true);
     getQuizByUser(user._id, token)
       .then((data) => {
-        setQuizes(data);
-        setLoading(false);
+        if(!data?.error){
+          setQuizes(data);
+          setLoading(false);
+        }
       })
       .catch((err) => console.log(err));
   };

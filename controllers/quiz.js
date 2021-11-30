@@ -40,7 +40,9 @@ exports.getQuiz = (req, res) => {
 
 exports.getAllPublicQuizes = (req, res) => {
   try {
-    Quiz.find({ blocked: false, visibility: true }).exec((err, quizes) => {
+    Quiz.find({ blocked: false, visibility: true })
+      .populate("user", "name username")
+      .exec((err, quizes) => {
       if (err) {
         return res.status(400).json({
           error: "NO Quizes Found",
@@ -71,7 +73,7 @@ exports.getQuizByUser = (req, res) => {
 
 exports.updateQuiz = async (req, res) => {
   try {
-    await Quiz.findByIdAndUpdate(
+     Quiz.findByIdAndUpdate(
       { _id: req.quiz._id },
       { $set: req.body },
       { new: true, useFindAndModify: false },
