@@ -24,12 +24,12 @@ exports.getUser = (req, res) => {
 
 exports.getAllUsers = async (req, res) => {
   try {
-    await User.find()
+    User.find()
       .select("-password")
       .exec((err, users) => {
         if (err) {
           return res.status(400).json({
-            error: "You are not authorized to update this user",
+            error: "Unable to get users",
           });
         }
         res.json(users);
@@ -77,11 +77,12 @@ exports.deleteUser = async (req, res) => {
   }
 };
 
-exports.blockUser = async (req, res) => {
+exports.blockUnblockUser = async (req, res) => {
   try {
-    await User.findByIdAndUpdate(
-      { _id: req.user._id },
-      { $set: { blocked: true } },
+    const user = req.body;
+    User.findByIdAndUpdate(
+      { _id: user._id },
+      { $set: { blocked: !user.blocked } },
       { new: true, useFindAndModify: false },
       (err, user) => {
         if (err) {

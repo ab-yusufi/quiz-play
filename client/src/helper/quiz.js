@@ -39,12 +39,11 @@ export const publicPrivateQuiz = async (quizId, userId, token) => {
   .catch(err => console.log(err));
 }
 
-export const getQuizByUser = async (user_id, token) => {
+export const getQuizByUser = async (user_id) => {
   return await fetch(`/api/quizes/${user_id}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`,
     },
   })
     .then((res) => res.json())
