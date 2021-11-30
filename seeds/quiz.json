@@ -1,0 +1,94 @@
+{
+    "1": {
+        "title": "Basic Quiz",
+        "questions": [
+            {
+                "question": "What is capital of India?",
+                "optionA": "Delhi",
+                "optionB": "Punjab",
+                "optionC": "Maharashtra",
+                "optionD": "Agra",
+                "correct": "A"
+            },
+            {
+                "question": "What is capital of India?",
+                "optionA": "Delhi",
+                "optionB": "Punjab",
+                "optionC": "Maharashtra",
+                "optionD": "Agra",
+                "correct": "A"
+            },
+            {
+                "question": "What is capital of India?",
+                "optionA": "Delhi",
+                "optionB": "Punjab",
+                "optionC": "Maharashtra",
+                "optionD": "Agra",
+                "correct": "A"
+            },
+            {
+                "question": "What is capital of India?",
+                "optionA": "Delhi",
+                "optionB": "Punjab",
+                "optionC": "Maharashtra",
+                "optionD": "Agra",
+                "correct": "A"
+            },
+            {
+                "question": "What is capital of India?",
+                "optionA": "Delhi",
+                "optionB": "Punjab",
+                "optionC": "Maharashtra",
+                "optionD": "Agra",
+                "correct": "A"
+            }
+
+        ]
+    },
+    "2": {
+        "title": "Basic Quiz 2",
+        "questions": [
+            {
+                "question": "What is capital of USA?",
+                "optionA": "New York",
+                "optionB": "LA",
+                "optionC": "Maharashtra",
+                "optionD": "Agra",
+                "correct": "A"
+            },
+            {
+                "question": "What is capital of USA?",
+                "optionA": "New York",
+                "optionB": "LA",
+                "optionC": "Maharashtra",
+                "optionD": "Agra",
+                "correct": "A"
+            },
+            {
+                "question": "What is capital of USA?",
+                "optionA": "New York",
+                "optionB": "LA",
+                "optionC": "Maharashtra",
+                "optionD": "Agra",
+                "correct": "A"
+            },
+            {
+                "question": "What is capital of USA?",
+                "optionA": "New York",
+                "optionB": "LA",
+                "optionC": "Maharashtra",
+                "optionD": "Agra",
+                "correct": "A"
+            },
+            {
+                "question": "What is capital of USA?",
+                "optionA": "New York",
+                "optionB": "LA",
+                "optionC": "Maharashtra",
+                "optionD": "Agra",
+                "correct": "A"
+            }
+
+        ]
+    }
+}

@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage/HomePage";
+import RegisterPage from "./pages/RegisterPage/RegisterPage";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
+import UserDashboard from "./pages/UserDashboard/UserDashboard";
+import Navbar from "./components/Navbar/Navbar";
+import AddEditQuiz from "./pages/AddEditQuiz/AddEditQuiz";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Router>
+      <Navbar />
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/register" component={RegisterPage} />
+          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/user/dashboard" component={UserDashboard} />
+          <Route exact path="/admin/dashboard" component={AdminDashboard} />
+          <Route exact path="/quiz/add" component={AddEditQuiz} />
+        </Switch>
+      </Router>
   );
 }
 

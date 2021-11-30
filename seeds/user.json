@@ -1,0 +1,21 @@
+{
+    "1": {
+        "name": "Abdurrahman Yusufi",
+        "username": "abcoder",
+        "email": "ab@abcoder.com",
+        "password": "123456",
+        "role": 10
+    },
+    "2": {
+        "name": "Ahmed Mujtaba",
+        "username": "mujtabazaid",
+        "email": "mujtaba@zaid.com",
+        "password": "123456"
+    },
+    "3": {
+        "name": "Musab Omair",
+        "username": "omair",
+        "email": "musab@omair.com",
+        "password": "123456"
+    }
+}
