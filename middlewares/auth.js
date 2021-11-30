@@ -1,16 +1,15 @@
 var expressJwt = require("express-jwt");
 
 //protected routes
-exports.isSignedIn = () => {
-  expressJwt({
-    algorithms: ["HS256"],
-    secret: process.env.SECRET,
-    userProperty: "auth",
-  });
-};
+exports.isSignedIn = expressJwt({
+  algorithms: ["HS256"],
+  secret: process.env.SECRET,
+  userProperty: "auth",
+});
 
 //custom middlewares
 exports.isAuthenticated = (req, res, next) => {
+
   let checker = req.user && req.auth && req.user._id == req.auth._id;
   if (!checker) {
     return res.status(403).json({
