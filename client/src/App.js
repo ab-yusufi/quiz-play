@@ -7,6 +7,7 @@ import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
 import UserDashboard from "./pages/UserDashboard/UserDashboard";
 import Navbar from "./components/Navbar/Navbar";
 import AddEditQuiz from "./pages/AddEditQuiz/AddEditQuiz";
+import ViewQuiz from "./pages/ViewQuiz/ViewQuiz";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route exact path="/user/dashboard" component={UserDashboard} />
           <Route exact path="/admin/dashboard" component={AdminDashboard} />
           <Route exact path="/quiz/add" component={AddEditQuiz} />
+          <Route exact path="/quiz/view" component={ViewQuiz} />
         </Switch>
       </Router>
   );

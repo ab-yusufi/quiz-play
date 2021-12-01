@@ -13,7 +13,7 @@ router.param("userId", getUserById);
 
 
 
-router.post("/attempt/:quizId/:userId", isSignedIn, isNotBlocked, createAttempt);
+router.post("/attempt/:quizId/:userId", isSignedIn, isAuthenticated, isNotBlocked, createAttempt);
 
 router.get("/attempts/:userId", getAttemptsByUser);
 router.get("/attempts/:quizId", getAttemptsByQuiz);

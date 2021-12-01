@@ -33,6 +33,7 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
+  	console.log(req.body)
     const errors = validationResult(req);
     const { email, password } = req.body;
     if (!errors.isEmpty()) {

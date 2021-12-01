@@ -5,15 +5,15 @@ import { Redirect } from "react-router-dom";
 
 const AddEditQuiz = ({ location }) => {
   const [values, setValues] = useState({
-    title: "Quiz On America",
+    title: "",
     questions: [
       {
-        question: "Question 1",
-        optionA: "A",
-        optionB: "B",
-        optionC: "C",
-        optionD: "D",
-        correct: "A",
+        question: "",
+        optionA: "",
+        optionB: "",
+        optionC: "",
+        optionD: "",
+        correct: "",
       },
     ],
     error: "",

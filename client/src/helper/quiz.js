@@ -71,3 +71,16 @@ export const deleteQuiz = async (quizId, userId, token) => {
     .then((res) => res.json())
     .catch((err) => console.log(err));
 };
+
+
+export const blockUnblockQuiz = async (quizId, userId, token) => {
+  return await fetch(`/api/quiz/block/${quizId}/${userId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`
+    }
+  })
+  .then(res => res.json())
+  .catch(err => console.log(err))
+}

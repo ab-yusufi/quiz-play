@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { blockUnblockUser, getAllUsers } from "../../helper/admin";
-import {getQuizByUser} from "../../helper/quiz";
+import { blockUnblockQuiz, getQuizByUser } from "../../helper/quiz";
 import { isAuthenticated } from "../../helper/auth";
+import "./AdminDashboard.css";
 
 const AdminDashboard = ({ history }) => {
   const [users, setUsers] = useState([]);
+  const [quizUser, setQuizUser] = useState();
   const [quizes, setQuizes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [reload, setReload] = useState(false);
@@ -24,26 +25,42 @@ const AdminDashboard = ({ history }) => {
   };
 
   const getQuizes = (u) => {
-      getQuizByUser(u._id)
-        .then(data => {
-            if(!data.error){
-                setQuizes(data)
-            }
-        }).catch(err => console.log(err))
-  }
+    getQuizByUser(u._id)
+      .then((data) => {
+        if (!data.error) {
+          setQuizes(data);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
 
   const blockUnblock = (u) => {
     blockUnblockUser(user._id, token, u).then((data) => {
       if (data?.error) {
         console.log(data.error);
-    } else {
-        setReload(!reload)
+      } else {
+        setReload(!reload);
       }
     });
   };
 
+  const blockUnblockQ = (q) => {
+    blockUnblockQuiz(q._id, user._id, token)
+      .then((data) => {
+        if (data?.error) {
+          console.log(data?.error);
+        } else {
+          console.log("data: ", data);
+          setReload(!reload);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
   useEffect(() => {
     getUsers();
+    if (quizUser) {
+      getQuizes(quizUser);
+    }
   }, [reload]);
 
   return (
@@ -58,9 +75,15 @@ const AdminDashboard = ({ history }) => {
               <div className="card p-2" key={index}>
                 <div className="row text-center">
                   <div className="col-8">
-                    <h4 onClick={() => {
-                        getQuizes(user)
-                    }}>{user.name}</h4>
+                    <h4
+                      className="cursor-pointer link-primary"
+                      onClick={() => {
+                        setQuizUser(user);
+                        getQuizes(user);
+                      }}
+                    >
+                      <u>{user.name}</u>
+                    </h4>
                   </div>
                   <div className="col-4">
                     <button
@@ -78,28 +101,29 @@ const AdminDashboard = ({ history }) => {
           })}
         </div>
         <div className="col-6">
-        {quizes && quizes.map((quiz, index) => {
-            return (
-              <div className="card p-2" key={index}>
-                <div className="row text-center">
-                  <div className="col-8">
-                    <h4>{quiz.title}</h4>
-                  </div>
-                  <div className="col-4">
-                    <button
-                      className="btn btn-primary"
-                      onClick={() => {
-                        blockUnblock(user);
-                      }}
-                    >
-                      {user.blocked ? "Unblock" : "Block"}
-                    </button>
+          {quizes &&
+            quizes.map((quiz, index) => {
+              return (
+                <div className="card p-2" key={index}>
+                  <div className="row text-center">
+                    <div className="col-8">
+                      <h4>{quiz.title}</h4>
+                    </div>
+                    <div className="col-4">
+                      <button
+                        className="btn btn-primary"
+                        onClick={() => {
+                          blockUnblockQ(quiz);
+                        }}
+                      >
+                        {quiz.blocked ? "Unblock" : "Block"}
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-          {quizes.length == 0 && (<p>No Quizes</p>)}
+              );
+            })}
+          {quizes.length == 0 && <p>No Quizes</p>}
         </div>
       </div>
     </div>

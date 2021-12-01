@@ -109,9 +109,8 @@ exports.deleteQuiz = async (req, res) => {
   }
 };
 exports.blockUnblockQuiz = async (req, res) => {
-  console.log("ENTERED");
   try {
-    await Quiz.findByIdAndUpdate(
+    Quiz.findByIdAndUpdate(
       { _id: req.quiz._id },
       { $set: { blocked: !req.quiz.blocked } },
       { new: true, useFindAndModify: false },
