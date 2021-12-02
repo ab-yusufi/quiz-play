@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { isAuthenticated } from "../../helper/auth";
 import { deleteQuiz, publicPrivateQuiz } from "../../helper/quiz";
 import { Link } from "react-router-dom";
-const DashQuizCard = ({ quiz, refresh, setRefresh = (f) => f }) => {
+const DashQuizCard = ({ quiz, refresh, setRefresh = (f) => f, disabled }) => {
   const [loading, setLoading] = useState(false);
   const [pubLoading, setPubLoading] = useState(false);
   const { user, token } = isAuthenticated();
@@ -48,7 +48,7 @@ const DashQuizCard = ({ quiz, refresh, setRefresh = (f) => f }) => {
         <Link to={{ pathname: "/quiz/view", state: quiz }}>
           <h5 className="card-title">{quiz.title}</h5>
         </Link>
-        <div className="card-text">
+        <div className="card-text" style={{display: disabled ? "none" : ""}}>
           <Link to={{ pathname: "/quiz/add", state: quiz }}>
             <button className="btn btn-info">Edit</button>
           </Link>
@@ -61,7 +61,7 @@ const DashQuizCard = ({ quiz, refresh, setRefresh = (f) => f }) => {
             {loading ? <div className="spinner-border"></div> : "Delete"}
           </button>
         </div>
-        <div className="card-text mt-3">
+        <div className="card-text mt-3" style={{display: disabled ? "none" : ""}}>
           <button
             className="btn btn-primary mx-3"
             onClick={() => {
