@@ -21,6 +21,7 @@ function App() {
           <Route exact path="/admin/dashboard" component={AdminDashboard} />
           <Route exact path="/quiz/add" component={AddEditQuiz} />
           <Route exact path="/quiz/view" component={ViewQuiz} />
+          <Route exact path="/quiz/view/:quizId" component={ViewQuiz} />
         </Switch>
       </Router>
   );

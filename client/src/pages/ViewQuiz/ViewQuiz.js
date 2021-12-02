@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { createAttempt } from "../../helper/attempt";
+import { getQuizById } from "../../helper/quiz";
+import { createAttempt, getAttemptsByQuiz } from "../../helper/attempt";
 import { isAuthenticated } from "../../helper/auth";
+import {toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-
-const ViewQuiz = ({ location }) => {
+const ViewQuiz = ({ location, match, history }) => {
   const [quiz, setQuiz] = useState();
   const [answers, setAnswers] = useState([]);
+  const [attempts, setAttempts] = useState([]);
   const [correctAnswers, setCorrectAnswers] = useState([]);
+  const [showCorrects, setShowCorrects] = useState(false);
+  const [disableSubmit, setDisableSubmit] = useState(false);
   const [score, setScore] = useState(0);
   const [values, setValues] = useState({
     success: "",
-    error: ""
-  })
+    error: "",
+  });
+  const {success, error} = values
 
   const { user, token } = isAuthenticated();
 
@@ -33,17 +39,44 @@ const ViewQuiz = ({ location }) => {
       }
     }
     setScore(score);
-    setAnswers([]);
-    createAttempt(quiz._id, user._id, token, {score})
-      .then(data => {
-        console.log("data: ", data)
-        if(data?.error){
-          console.log(data?.error)  
-        } else {
-          setValues({...values, success: `Quiz Submitted Successfully, Your Score is ${score}`})
+    window.scrollTo(0,0);
+    setValues({
+      ...values,
+      success: `Quiz Submitted Successfully, Your Score is ${score} / ${quiz.questions.length}`,
+    });
+    setShowCorrects(true)
+    // setAnswers([]);
+    // createAttempt(quiz._id, user._id, token, { score }).then((data) => {
+    //   if (data?.error) {
+    //     console.log(data?.error);
+    //   } else {
+    //     setValues({
+    //       ...values,
+    //       success: `Quiz Submitted Successfully, Your Score is ${score}`,
+    //     });
+    //   }
+    // });
+  };
+
+  const getAttempts = () => {
+    getAttemptsByQuiz(location.state._id)
+      .then((data) => {
+        console.log(data);
+        if (!data?.error) {
+          setAttempts(data);
         }
       })
+      .catch((err) => console.log(err));
   };
+
+  const getQuiz = (quizId) => {
+    getQuizById(quizId)
+      .then(data => {
+        if(!data?.error){
+          setQuiz(data);
+        }
+      }).catch(err => console.log(err))
+  }
 
   useEffect(() => {
     if (location.state) {
@@ -53,16 +86,40 @@ const ViewQuiz = ({ location }) => {
         corrects.push(quiz.correct);
       });
       setCorrectAnswers(corrects);
+      getAttempts();
+    } else if(match.params.quizId){
+      getQuiz(match.params.quizId);
     }
   }, []);
   return (
     <div className="container">
+      <ToastContainer/>
       <div className="text-center text-primary my-4">
         <h3>{quiz?.title}</h3>
-        {values.success}
+        <h6 className="alert alert-success" style={{display: success ? "": "none"}}>{success}</h6>
+        <h6 className="alert alert-danger" style={{display: error ? "": "none"}}>{error}</h6>
+      </div>
+      <div className="text-center my-4">
+        <button
+          className="btn btn-success"
+          onClick={() => {
+            setShowCorrects(!showCorrects);
+            setDisableSubmit(!disableSubmit);
+          }}
+        >
+          {showCorrects ? "Hide Answers" : "Show Answers"}
+        </button>
+        <button className="btn btn-primary btn-sm mx-3"
+        onClick={() =>  {
+          navigator.clipboard.writeText("https://quiz-play.herokuapp.com"+location.pathname)
+          toast.info('Copied To Clipboard');
+        }}
+        >
+          Copy Quiz Link
+        </button>
       </div>
       <div className="row">
-        <div className="col-6">
+        <div className="col-6 offset-3">
           {quiz?.questions.map((question, index) => {
             return (
               <div className="card p-4">
@@ -115,15 +172,42 @@ const ViewQuiz = ({ location }) => {
                     {"D. " + question.optionD}
                   </label>
                 </div>
+
+                <h6
+                  className="alert alert-success mt-3"
+                  style={{ display: showCorrects ? "" : "none" }}
+                >
+                  {"Correct Answer: " + question.correct}
+                </h6>
               </div>
             );
           })}
           <div className="text-center">
-            <button className="btn btn-primary my-4 w-50" onClick={submitQuiz}>
+            <button
+              className="btn btn-primary my-4 w-50"
+              onClick={submitQuiz}
+              disabled={disableSubmit}
+            >
               Submit
             </button>
           </div>
         </div>
+        {/* <div className="col-6">
+          <table className="table table-striped text-center">
+            <tr className="">
+              <th>Username</th>
+              <th>Score</th>
+            </tr>
+            {attempts?.map((attempt, i) => {
+              return (
+                <tr>
+                  <td>{attempt.user.username}</td>
+                  <td>{attempt.score}</td>
+                </tr>
+              );
+            })}
+          </table>
+        </div> */}
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ const cors = require("cors");
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 const quizRoutes = require("./routes/quiz");
-// const attemptRoutes = require("./routes/attempt");
+const attemptRoutes = require("./routes/attempt");
 
 
 
@@ -24,7 +24,7 @@ app.use(cookieParser());
 app.use("/api", authRoutes)
 app.use("/api", userRoutes)
 app.use("/api", quizRoutes)
-// app.use("/api", attemptRoutes)
+app.use("/api", attemptRoutes)
 
 //Static Files
 app.use(express.static(path.join(__dirname, "client/build")));

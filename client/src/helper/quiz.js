@@ -84,3 +84,10 @@ export const blockUnblockQuiz = async (quizId, userId, token) => {
   .then(res => res.json())
   .catch(err => console.log(err))
 }
+
+export const getQuizById = async (quizId) => {
+  return await fetch(`/api/quiz/${quizId}`, {
+    method: "GET"
+  }).then(res => res.json())
+  .catch(err => console.log(err))
+}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { isAuthenticated } from "../../helper/auth";
 import { deleteQuiz, publicPrivateQuiz } from "../../helper/quiz";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 const DashQuizCard = ({ quiz, refresh, setRefresh = (f) => f }) => {
   const [loading, setLoading] = useState(false);
   const [pubLoading, setPubLoading] = useState(false);
@@ -45,7 +45,9 @@ const DashQuizCard = ({ quiz, refresh, setRefresh = (f) => f }) => {
         alt="..."
       />
       <div className="card-body text-center">
-        <h5 className="card-title">{quiz.title}</h5>
+        <Link to={{ pathname: "/quiz/view", state: quiz }}>
+          <h5 className="card-title">{quiz.title}</h5>
+        </Link>
         <div className="card-text">
           <Link to={{ pathname: "/quiz/add", state: quiz }}>
             <button className="btn btn-info">Edit</button>
