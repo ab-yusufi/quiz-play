@@ -111,7 +111,7 @@ const ViewQuiz = ({ location, match, history }) => {
         </button>
         <button className="btn btn-primary btn-sm mx-3"
         onClick={() =>  {
-          navigator.clipboard.writeText("https://quiz-play.herokuapp.com"+location.pathname)
+          navigator.clipboard.writeText("https://quiz-play.herokuapp.com/quiz/view"+quiz._id)
           toast.info('Copied To Clipboard');
         }}
         >
