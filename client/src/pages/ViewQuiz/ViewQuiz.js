@@ -119,7 +119,7 @@ const ViewQuiz = ({ location, match, history }) => {
         </button>
       </div>
       <div className="row">
-        <div className="col-6 offset-3">
+        <div className="col-10 offset-1 offset-md-2 col-md-8">
           {quiz?.questions.map((question, index) => {
             return (
               <div className="card p-4">

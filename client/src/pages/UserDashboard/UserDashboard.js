@@ -14,7 +14,7 @@ const UserDashboard = ({ history }) => {
     setLoading(true);
     getQuizByUser(user._id, token)
       .then((data) => {
-        if(!data?.error){
+        if (!data?.error) {
           setQuizes(data);
           setLoading(false);
         }
@@ -31,7 +31,7 @@ const UserDashboard = ({ history }) => {
         <h1>Welcome to User Dashboard</h1>
       </div>
       <div className="row my-4">
-        <div className="col-6 text-center">
+        <div className="col-md-6 col-12 text-center">
           <h3>
             Name: <span className="text-primary">{user?.name}</span>
           </h3>
@@ -39,28 +39,28 @@ const UserDashboard = ({ history }) => {
             Username: <span className="text-primary">@{user?.username}</span>
           </h5>
         </div>
-        <div className="col-6 text-center">
+        <div className="col-md-6 col-12 text-center">
           <h3>
             Total Quizes: <span className="text-primary">{quizes?.length}</span>
           </h3>
         </div>
       </div>
-      <div className="d-flex flex-row flex-wrap w-100 text-center">
-        {loading ? (
-          <div className="spinner-border" role="status"></div>
-        ) : (
-          quizes?.map((quiz, index) => {
-            return (
-              <DashQuizCard
-                quiz={quiz}
-                key={index}
-                refresh={refresh}
-                setRefresh={setRefresh}
-              />
-            );
-          })
-        )}
-      </div>
+        <div className="d-flex flex-row flex-wrap w-100 text-center">
+          {loading ? (
+            <div className="spinner-border" role="status"></div>
+          ) : (
+            quizes?.map((quiz, index) => {
+              return (
+                <DashQuizCard
+                  quiz={quiz}
+                  key={index}
+                  refresh={refresh}
+                  setRefresh={setRefresh}
+                />
+              );
+            })
+          )}
+        </div>
     </div>
   );
 };

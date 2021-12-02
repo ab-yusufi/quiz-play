@@ -24,13 +24,12 @@ const HomePage = () => {
   return (
     <div className="container">
       <div className="text-center my-4">
-
         <h1 className="text-primary">Create And Share Quizes</h1>
-        <div className="d-flex flex-row flex-wrap w-100 text-center">
-          {quizes?.map((quiz, index) => {
-            return <HomeQuizCard quiz={quiz} />;
-          })}
-        </div>
+          <div className="d-flex flex-wrap">
+            {quizes?.map((quiz, index) => {
+              return <HomeQuizCard quiz={quiz} />;
+            })}
+          </div>
       </div>
     </div>
   );
