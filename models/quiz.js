@@ -53,7 +53,7 @@ const quizSchema = new mongoose.Schema({
     default: false,
     required: true,
   },
-});
+},{timestamps: true});
 
 const Quiz = mongoose.model("Quiz", quizSchema);
 
