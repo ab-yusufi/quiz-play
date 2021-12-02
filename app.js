@@ -16,7 +16,7 @@ const attemptRoutes = require("./routes/attempt");
 
 //Middlewares
 app.use(express.json());
-app.use(cors());
+app.use(cors({origin: "https://quiz-play.herokuapp.com"}));
 app.use(cookieParser());
 
 
