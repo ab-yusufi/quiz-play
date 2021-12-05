@@ -9,7 +9,6 @@ exports.isSignedIn = expressJwt({
 
 //custom middlewares
 exports.isAuthenticated = (req, res, next) => {
-  console.log("AUTH ENTErED")
   let checker = req.user && req.auth && req.user._id == req.auth._id;
   if (!checker) {
     return res.status(403).json({
