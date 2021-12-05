@@ -41,7 +41,7 @@ exports.getQuiz = (req, res) => {
 exports.getAllPublicQuizes = (req, res) => {
   try {
     Quiz.find({ blocked: false, visibility: true })
-      .populate({path: "user",match: {blocked: {$ne: true}}}, "name username")
+      .populate({path: "user",select: "name username",match: {blocked: {$ne: true}}})
       .exec((err, quizes) => {
       if (err) {
         return res.status(400).json({
