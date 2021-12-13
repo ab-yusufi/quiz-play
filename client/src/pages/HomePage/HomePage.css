@@ -1,0 +1,33 @@
+body {
+  background: #000000;
+  overflow-x: hidden;
+}
+i {
+  position: absolute;
+  height: 500px;
+  z-index: -1;
+  background: linear-gradient(transparent, #fff);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  animation: animate 5s linear infinite;
+}
+i:nth-child(3n + 1) {
+  background: linear-gradient(transparent, #0ff);
+
+}
+i:nth-child(3n + 2) {
+  background: linear-gradient(transparent, #0f0);
+
+}
+i:nth-child(3n + 3) {
+  background: linear-gradient(transparent, #f00);
+
+}
+@keyframes animate {
+  0% {
+    transform: translateY(-500px);
+  }
+  100% {
+    transform: translateY(calc(100vh - 600px));
+  }
+}

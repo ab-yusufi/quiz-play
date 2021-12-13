@@ -15,7 +15,7 @@ const currentTab = (history, path) => {
 
 const Navbar = ({history}) => {
   return (
-    <div>
+    <Fragment>
       <ul className="nav nav-tabs bg-primary">
         <li className="nav-item">
           <Link style={currentTab(history, "/")} className="nav-link" to="/">
@@ -92,7 +92,7 @@ const Navbar = ({history}) => {
           </li>
         )}
       </ul>
-    </div>
+    </Fragment>
   );
 };
 
