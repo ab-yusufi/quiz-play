@@ -8,22 +8,57 @@ import UserDashboard from "./pages/UserDashboard/UserDashboard";
 import Navbar from "./components/Navbar/Navbar";
 import AddEditQuiz from "./pages/AddEditQuiz/AddEditQuiz";
 import ViewQuiz from "./pages/ViewQuiz/ViewQuiz";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [values, setValues] = useState({
+    drops: [],
+  });
+
+  const { drops } = values;
+  const rain = async () => {
+    let amount = 50;
+    let tempDrops = [];
+    for (let i = 0; i < amount; i++) {
+      let size = Math.random() * 5 + 0.2;
+      let posX = Math.floor(Math.random() * window.innerWidth);
+      let delay = Math.random() * -20;
+      let duration = Math.random() * 5 + 0.5;
+      tempDrops.push(
+        <i
+          key={i}
+          style={{
+            width: size + "px",
+            left: posX + "px",
+            animationDelay: delay + "s",
+            animationDuration: duration + "s",
+          }}
+        ></i>
+      );
+    }
+    setValues({ drops: tempDrops });
+  };
+
+  useEffect(() => {
+    rain();
+  }, []);
   return (
-      <Router>
+    <Router>
       <Navbar />
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/register" component={RegisterPage} />
-          <Route exact path="/login" component={LoginPage} />
-          <Route exact path="/user/dashboard" component={UserDashboard} />
-          <Route exact path="/admin/dashboard" component={AdminDashboard} />
-          <Route exact path="/quiz/add" component={AddEditQuiz} />
-          <Route exact path="/quiz/view" component={ViewQuiz} />
-          <Route exact path="/quiz/view/:quizId" component={ViewQuiz} />
-        </Switch>
-      </Router>
+      {drops.map((drop, index) => {
+        return drop;
+      })}
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route exact path="/register" component={RegisterPage} />
+        <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/user/dashboard" component={UserDashboard} />
+        <Route exact path="/admin/dashboard" component={AdminDashboard} />
+        <Route exact path="/quiz/add" component={AddEditQuiz} />
+        <Route exact path="/quiz/view" component={ViewQuiz} />
+        <Route exact path="/quiz/view/:quizId" component={ViewQuiz} />
+      </Switch>
+    </Router>
   );
 }
 

@@ -65,7 +65,7 @@ const AdminDashboard = ({ history }) => {
 
   return (
     <div className="container">
-      <div className="text-primary text-center my-4">
+      <div className="text-white text-center my-4 text-bg">
         <h1>Welcome to Admin Dashboard</h1>
       </div>
       <div className="row">

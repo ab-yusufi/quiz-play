@@ -278,9 +278,11 @@ const AddEditQuiz = ({ location }) => {
   };
   return (
     <div className="container">
-      <h1 className="text-primary text-center my-4">
+      <div className="text-bg my-4 py-1">
+      <h1 className="text-white text-center my-4">
         {location.state ? "Edit Quiz Here" : "Add Quiz Here"}
       </h1>
+      </div>
       {QuizForm()}
       {performRedirect()}
       {errorMessage()}

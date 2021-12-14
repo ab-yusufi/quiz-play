@@ -45,8 +45,8 @@ const UserDashboard = ({ history, location }) => {
     }
   }, [refresh]);
   return (
-    <div className="container">
-      <div className="text-center my-3">
+    <div className="container text-white">
+      <div className="text-center my-3 text-bg">
         <h1>Welcome to User Dashboard</h1>
       </div>
       <div className="row my-4">
@@ -65,7 +65,7 @@ const UserDashboard = ({ history, location }) => {
           </h3>
         </div>
       </div>
-      <div className="d-flex flex-row flex-wrap w-100 text-center">
+      <div className="d-flex flex-row flex-wrap w-100 justify-content-center">
         {loading ? (
           <div className="spinner-border" role="status"></div>
         ) : (
