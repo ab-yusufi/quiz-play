@@ -17,7 +17,12 @@ function App() {
 
   const { drops } = values;
   const rain = async () => {
-    let amount = 50;
+    let amount;
+    if (window.innerWidth <= 800) {
+      amount = 25;
+    } else {
+      amount = 50;
+    }
     let tempDrops = [];
     for (let i = 0; i < amount; i++) {
       let size = Math.random() * 5 + 0.2;
