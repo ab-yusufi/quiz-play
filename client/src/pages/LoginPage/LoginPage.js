@@ -65,8 +65,9 @@ const LoginPage = () => {
   const loginForm = () => {
     return (
       <Fragment>
-        <h1 className="text-primary text-center my-4">Login Here</h1>
-
+        <div className="text-bg py-1">
+        <h1 className="text-white text-center my-4">Login Here</h1>
+        </div>
         <div className="mb-3 mt-3">
           <input
             type="text"

@@ -20,7 +20,7 @@ const Navbar = ({ history }) => {
             QuizPlay
           </a>
           <button
-            className="navbar-toggler text-white"
+            className="navbar-toggler bg-white"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarNav"
@@ -28,11 +28,11 @@ const Navbar = ({ history }) => {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon text-white"></span>
+            <span class="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav">
-              <li className="nav-item mx-1">
+            <ul className="navbar-nav me-auto mt-3 mt-lg-0">
+              <li className="nav-item mx-1 ">
                 <Link
                   style={currentTab(history, "/")}
                   className="nav-link"
@@ -74,32 +74,13 @@ const Navbar = ({ history }) => {
                   </Link>
                 </li>
               )}
-              {!isAuthenticated() && (
-                <div className="d-flex ms-auto">
-                  <li className="nav-item mx-1">
-                    <Link
-                      style={currentTab(history, "/register")}
-                      className="nav-link"
-                      to="/register"
-                    >
-                      Register
-                    </Link>
-                  </li>
-                  <li className="nav-item mx-1">
-                    <Link
-                      style={currentTab(history, "/login")}
-                      className="nav-link"
-                      to="/login"
-                    >
-                      Log In
-                    </Link>
-                  </li>
-                </div>
-              )}
+              
+            </ul>
+            <ul className="navbar-nav">
               {isAuthenticated() && (
-                <li className="nav-item ms-auto mx-1">
+                <li className="nav-item mx-1 my-2">
                   <span
-                    className="nav-link text-white cursor-pointer"
+                    className="nav-link btn btn-outline-warning text-white cursor-pointer"
                     onClick={() => {
                       logout(() => {
                         history.push("/");
@@ -109,6 +90,28 @@ const Navbar = ({ history }) => {
                     Logout
                   </span>
                 </li>
+              )}
+              {!isAuthenticated() && (
+                <Fragment>
+                  <li className="nav-item mx-1">
+                    <Link
+                      style={currentTab(history, "/register")}
+                      className="nav-link my-2 btn btn-primary"
+                      to="/register"
+                    >
+                      Register
+                    </Link>
+                  </li>
+                  <li className="nav-item mx-1 ">
+                    <Link
+                      style={currentTab(history, "/login")}
+                      className="nav-link my-2 btn btn-outline-primary"
+                      to="/login"
+                    >
+                      Log In
+                    </Link>
+                  </li>
+                </Fragment>
               )}
             </ul>
           </div>
