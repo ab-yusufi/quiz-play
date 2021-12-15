@@ -4,7 +4,7 @@ body {
 }
 i {
   position: absolute;
-  height: 500px;
+  height: 100px;
   z-index: -1;
   background: linear-gradient(transparent, #fff);
   border-bottom-left-radius: 5px;
@@ -31,9 +31,9 @@ i:nth-child(3n + 3) {
 
 @keyframes animate {
   0% {
-    transform: translateY(-500px);
+    transform: translateY(-100px);
   }
   100% {
-    transform: translateY(calc(100vh - 600px));
+    transform: translateY(calc(100vh - 200px));
   }
 }
