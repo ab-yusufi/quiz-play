@@ -120,7 +120,7 @@ const ViewQuiz = ({ location, match, history }) => {
           className="btn btn-primary btn-sm mx-3"
           onClick={() => {
             navigator.clipboard.writeText(
-              "https://quiz-play.herokuapp.com/quiz/view/" + quiz._id
+              "https://quizplay.onrender.com/quiz/view/" + quiz._id
             );
             toast.info("Copied To Clipboard");
           }}
